@@ -20,7 +20,7 @@ class Video(models.Model):
     upload_date = models.DateTimeField(auto_now_add=True)
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='videos')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='videos')  
-    likes = models.IntegerField(default=0)
+    # likes = models.IntegerField(default=0)
     liked_by = models.ManyToManyField(User, related_name='liked_videos', blank=True)
     comments_count = models.IntegerField(default=0, verbose_name='Number of Comments')
 

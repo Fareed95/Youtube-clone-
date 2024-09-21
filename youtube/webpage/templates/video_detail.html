@@ -48,14 +48,14 @@
                     <p>{{video_personal.views}} Views &bull;{{video_personal.upload_date|date:"d M Y"}}</p>
                     <div class="button-group">
                         <!-- Like Form -->
-                        <form action="{% url 'like_video' video_personal.id %}" method="POST">
+                        <form id="like-form" action="{% url 'like_video' video_personal.id %}" method="POST">
                             {% csrf_token %}
-                            <button type="button" id="like-button" class="action-button" data-liked="false">
+                            <button type="submit" id="like-button" class="action-button">
                                 <img src="{% static 'images/like.png' %}" alt="Like" id="like-icon">
-                                <span id="like-count">{{ video_personal.likes }}</span>
+                                <span id="like-count">{{ video_personal.liked_by.count }}</span>
+
                             </button>
                         </form>
-                    
                         <!-- Dislike Form -->
                         <button type="button" class="action-button" id="dislike-button">
                             <img src="{% static 'images/dislike.png' %}" alt="Dislike">

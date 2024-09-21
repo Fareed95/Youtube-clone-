@@ -81,21 +81,18 @@ def channel_detail(request, pk):
         return render(request, 'channel_detail.html',context)
     if request.method == "POST":
         pass
-    
 @login_required(login_url='login')
 def like_video(request, video_id):
+    video = get_object_or_404(Video, id=video_id)
+
     if request.method == "POST":
-        video = get_object_or_404(Video, id=video_id)
-        
-        if request.user in video.likes.all():
-            video.likes.remove(request.user)
-            video.like_count -= 1  # Assuming you have a 'like_count' field in your model
+        if request.user in video.liked_by.all():
+            video.liked_by.remove(request.user)  # Remove user from liked_by
         else:
-            video.likes.add(request.user)
-            video.like_count += 1
-        
-        video.save()
-        return redirect('video_detail', pk=video_id)
+            video.liked_by.add(request.user)  # Add user to liked_by
+
+        video.save()  # Save the changes
+        return redirect('video_detail', pk=video.id)  # Redirect to the video detail page
     else:
         return HttpResponse(status=405)
 
